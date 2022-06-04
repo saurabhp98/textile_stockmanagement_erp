@@ -15,6 +15,11 @@ class CreateTransportsTable extends Migration
     {
         Schema::create('transports', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('gst_id');
+            $table->longText('address');
+            $table->bigInteger('number');
+            $table->string('email');
             $table->timestamps();
         });
     }
