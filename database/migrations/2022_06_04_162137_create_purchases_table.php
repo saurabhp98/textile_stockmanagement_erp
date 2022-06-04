@@ -22,26 +22,26 @@ class CreatePurchasesTable extends Migration
 
             //one to many relation with 
             //clients table
-            $table->unsignedBigInteger('clients_id');
-            $table->foreign('clients_id')
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')
                     ->references('id')
-                    ->on('clients')
+                    ->on('client')
                     ->onDelete('cascade');
 
             //one to many relation 
             //items table
-            $table->unsignedBigInteger('items_id');
-            $table->foreign('items_id')
+            $table->unsignedBigInteger('item_id');
+            $table->foreign('item_id')
                     ->references('id')
-                    ->on('items')
+                    ->on('item')
                     ->onDelete('cascade');
 
             // one to many table 
             // transport table
-            $table->unsignedBigInteger('transports_id');
-            $table->foreign('transports_id')
+            $table->unsignedBigInteger('transport_id');
+            $table->foreign('transport_id')
                     ->references('id')
-                    ->on('transports')
+                    ->on('transport')
                     ->onDelete('cascade');
             $table->timestamps();
         });
