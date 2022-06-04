@@ -15,17 +15,17 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->unique('invoice');// should be unique
-            $table->date('invoice_date');
+            $table->string('inv_no')->unique();
+            $table->date('inv_date');
             $table->string('challan_no');
             $table->date('challan_date');
-
+            $table->string('lr_no');
             //one to many relation with 
             //clients table
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')
                     ->references('id')
-                    ->on('client')
+                    ->on('clients')
                     ->onDelete('cascade');
 
             //one to many relation 
@@ -33,7 +33,7 @@ class CreatePurchasesTable extends Migration
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')
                     ->references('id')
-                    ->on('item')
+                    ->on('items')
                     ->onDelete('cascade');
 
             // one to many table 
@@ -41,7 +41,7 @@ class CreatePurchasesTable extends Migration
             $table->unsignedBigInteger('transport_id');
             $table->foreign('transport_id')
                     ->references('id')
-                    ->on('transport')
+                    ->on('transports')
                     ->onDelete('cascade');
             $table->timestamps();
         });
