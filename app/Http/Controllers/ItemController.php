@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Throw_;
+use PhpParser\Node\Stmt\Return_;
 
 class ItemController extends Controller
 {
@@ -14,7 +16,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        return Item::all();
+        
     }
 
     /**
@@ -35,7 +38,20 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = $request->validate([
+            
+            'item_name' => 'required',
+            'width' => 'required',
+            'shade' => 'required'
+
+        ]);
+        
+        try {
+           
+            return Item::create($request->all());
+        } catch (Throw_ $th) {
+            return $th;
+        }
     }
 
     /**
@@ -44,9 +60,10 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show($id)
     {
         //
+        return Item::find($id);
     }
 
     /**
@@ -67,9 +84,11 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request, $id)
     {
-        //
+        $item = Item::find($id);
+        $item->update($request->all());
+        return $item;
     }
 
     /**
@@ -78,8 +97,15 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Item $item)
+    public function destroy($id)
     {
-        //
+        $item = Item::find($id);
+        $item->delete();
+        return 'item deleted successfully';
+    }
+
+    public function searchItem($searchText){
+        $item = Item::where('item_name', $searchText)->get();
+        return $item;
     }
 }

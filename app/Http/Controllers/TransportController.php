@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Transport;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Throw_;
 
 class TransportController extends Controller
 {
@@ -14,7 +16,7 @@ class TransportController extends Controller
      */
     public function index()
     {
-        //
+        return Transport::all();
     }
 
     /**
@@ -35,7 +37,20 @@ class TransportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request ->validate([
+            'name' => 'required',
+            'gst_id' => 'required',
+            'address'=> 'required',
+            'number' => 'integer',
+            'email' => 'email'
+        ]);
+        try {
+            //code...
+            return Transport::create($request->all());
+        } catch (Throw_ $th) {
+            //throw $th;
+            return $th;
+        }
     }
 
     /**
@@ -44,9 +59,9 @@ class TransportController extends Controller
      * @param  \App\Models\Transport  $transport
      * @return \Illuminate\Http\Response
      */
-    public function show(Transport $transport)
+    public function show($id)
     {
-        //
+        return Transport::find($id);
     }
 
     /**
@@ -67,9 +82,11 @@ class TransportController extends Controller
      * @param  \App\Models\Transport  $transport
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transport $transport)
+    public function update(Request $request, $id)
     {
-        //
+        $transport = Transport::find($id);
+        $transport->update($request->all());
+        return $transport;
     }
 
     /**
@@ -78,8 +95,10 @@ class TransportController extends Controller
      * @param  \App\Models\Transport  $transport
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transport $transport)
+    public function destroy($id)
     {
-        //
+        $transport = Transport::find($id);
+        $transport->delete();
+        return 'transport deleted';
     }
 }

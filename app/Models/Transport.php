@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Transport extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'gst_id',
+        'address',
+        'number',
+        'email'
+    ];
+    
+    public function purchase(){
+        return $this->belongsTo(Purchase::class, 'id');
+    }
+
+    
 }
