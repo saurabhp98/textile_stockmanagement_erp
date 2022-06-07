@@ -17,7 +17,8 @@ class Transport extends Model
     ];
     
     public function purchase(){
-        return $this->belongsTo(Purchase::class, 'id');
+        // return $this->belongsTo(Purchase::class);
+        return $this->hasOne(Purchase::class);
     }
 
     

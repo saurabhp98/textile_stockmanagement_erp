@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\TransportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,3 +37,6 @@ Route::get('/search_item/{searchText}', [ItemController::class, 'searchItem']);
 
 // Transport Model Routing 
 Route::resource('/transport', TransportController::class);
+
+// purchase model api
+Route::resource('/purchase', PurchaseController::class);

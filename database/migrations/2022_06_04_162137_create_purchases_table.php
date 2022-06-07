@@ -22,7 +22,7 @@ class CreatePurchasesTable extends Migration
             $table->string('lr_no');
             //one to many relation with 
             //clients table
-            $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('client_id')->nullable();
             $table->foreign('client_id')
                     ->references('id')
                     ->on('clients')
@@ -38,7 +38,7 @@ class CreatePurchasesTable extends Migration
 
             // one to many table 
             // transport table
-            $table->unsignedBigInteger('transport_id');
+            $table->unsignedBigInteger('transport_id')->nullable();
             $table->foreign('transport_id')
                     ->references('id')
                     ->on('transports')

@@ -12,6 +12,7 @@ class Client extends Model
         'name', 'gst_id', 'address', 'number', 'email'
     ];
     public function purchase(){
-        return $this->belongsTo(Purchase::class, 'id');
+        // return $this->belongsToMany(Purchase::class);
+        return $this->hasMany(Purchase::class);
     }
 }

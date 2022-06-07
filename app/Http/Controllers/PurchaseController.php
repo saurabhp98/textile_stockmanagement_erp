@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
+use App\Models\Item;
 use App\Models\Purchase;
+use App\Models\Transport;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Throw_;
 
 class PurchaseController extends Controller
 {
@@ -14,7 +18,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        //
+        return Purchase::all();
     }
 
     /**
@@ -24,7 +28,7 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -34,8 +38,31 @@ class PurchaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $item = Item::findOrFail($request->item_id); //get item
+        $client = Client::findOrFail($request->client_id);//get client
+        $transport = Transport::findOrFail($request->transport_id); //get transport
+        $purchase = new Purchase(); //created new purchase instance
+        $purchase->inv_no = $request->inv_no; 
+        $purchase->inv_date = $request->inv_date;
+        $purchase->challan_no = $request->challan_no;
+        $purchase->challan_date = $request->challan_date;
+        $purchase->lr_no = $request->lr_no;
+        // $purchase->client_id = $request->client_id; 
+        // $purchase->transport_id = $request->transport_id; 
+        
+        $purchase->client()->associate($client);//associating client to the purchase 
+        $purchase->transport()->associate($transport); //associating transport to the purchase
+        try {
+            $item->purchase()->save($purchase);
+        } catch (Throw_ $th) {
+            throw $th;
+        }
+
+
+        return $purchase;
+            
+
     }
 
     /**
@@ -44,9 +71,11 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function show(Purchase $purchase)
+    public function show($id)
     {
-        //
+        // get single purchase by id
+        return Purchase::find($id); 
+    
     }
 
     /**
@@ -67,9 +96,11 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Purchase $purchase)
+    public function update(Request $request, $id)
     {
-        //
+        $purchase = Purchase::find($id);
+        $purchase->update($request->all());
+        return $purchase;
     }
 
     /**
@@ -78,8 +109,10 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Purchase $purchase)
+    public function destroy($id)
     {
-        //
+        $purchase = Purchase::find($id);
+        $purchase->delete();
+        return response('{$purchase} deleted successfully', 200);
     }
 }

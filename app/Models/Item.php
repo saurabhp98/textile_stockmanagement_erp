@@ -14,6 +14,7 @@ class Item extends Model
         'shade'
     ];
     public function purchase(){
-        return $this->belongsTo(Purchase::class, 'id');
+        // return $this->belongsToMany(Purchase::class);
+        return $this->hasMany(Purchase::class, 'item_id');
     }
 }
