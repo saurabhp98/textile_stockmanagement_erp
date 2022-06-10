@@ -24,7 +24,7 @@ class PurchaseSeeder extends Seeder
             'challan_date' => $faker->date(),
             'lr_no' => '055465',
             'client_id' => 2,
-            'item_id' => 1,
+            // 'item_id' => 1,
             'transport_id' => 1,
         ]);
 

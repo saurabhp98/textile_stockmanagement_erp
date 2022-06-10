@@ -53,8 +53,12 @@ class PurchaseController extends Controller
         
         $purchase->client()->associate($client);//associating client to the purchase 
         $purchase->transport()->associate($transport); //associating transport to the purchase
+        
         try {
-            $item->purchase()->save($purchase);
+            // $item->purchase()->save($purchase);
+            $purchase->save();
+        $purchase->item()->attach($item);//attach item to purchase many to many relation
+
         } catch (Throw_ $th) {
             throw $th;
         }
@@ -114,5 +118,12 @@ class PurchaseController extends Controller
         $purchase = Purchase::find($id);
         $purchase->delete();
         return response('{$purchase} deleted successfully', 200);
+    }
+
+    public function searchPurchase(Request $request){
+        $purchase = Purchase::where('inv_no', $request->search_text)
+                            ->orWhere('challan_no', $request->search_text)
+                            ->orWhere('lr_no', $request->search_text)->get();
+        return $purchase;
     }
 }

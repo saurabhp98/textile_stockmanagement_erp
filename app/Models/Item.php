@@ -13,8 +13,9 @@ class Item extends Model
         'width',
         'shade'
     ];
+    // many to many relationship with purchase
     public function purchase(){
         // return $this->belongsToMany(Purchase::class);
-        return $this->hasMany(Purchase::class, 'item_id');
+        return $this->belongsToMany(Purchase::class);
     }
 }

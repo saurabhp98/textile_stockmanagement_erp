@@ -28,15 +28,31 @@ class Purchase extends Model
 
     }
 
-    // one to many relation with item table
+    // many to many relation with item table
     public function item(){
         // return $this->hasMany(Item::class);
-        return $this->belongsTo(Item::class);
+        return $this->belongsToMany(Item::class);
     }
 
     // on to one relation with transport
     public function transport(){
         // return $this->hasOne(Transport::class);
         return $this->belongsTo(Transport::class);
+    }
+
+    public function stock() {
+        return $this->hasMany(Stock::class, 'purchases_id');
+    }
+
+    public function clientName(){
+        return $this->hasOne(Stock::class, 'purchase_client_id');
+    }
+
+    public function itemName(){
+        return $this->hasOne(Stock::class, 'purchase_item_id');
+    }
+
+    public function trasnportName(){
+        return $this->hasOne(Stock::class, 'purchase_trasnport_id');
     }
 }

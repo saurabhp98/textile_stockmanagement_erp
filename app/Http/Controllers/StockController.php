@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Purchase;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Throw_;
 
 class StockController extends Controller
 {
@@ -14,7 +16,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        //
+        return Stock::all();
     }
 
     /**
@@ -24,7 +26,7 @@ class StockController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +37,22 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $purchase = Purchase::find($request->id);
+        $stock = new Stock();
+        $stock->roll_no = $request->roll_no;
+        $stock->grade = $request->grade;
+        $stock->meter = $request->meter;
+        $stock->width = $request->width;
+        $stock->weight = $request->weight;
+        // $stock->purchase_client_id -> $purchase->client_id;
+        // $stock->purchase_item_id -> $purchase->item_id;
+        // $stock->purchase_transport_id -> $purchase->transport_id;
+
+        try {
+            $purchase->stock()->save($stock);
+        } catch (Throw_ $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -44,9 +61,9 @@ class StockController extends Controller
      * @param  \App\Models\Stock  $stock
      * @return \Illuminate\Http\Response
      */
-    public function show(Stock $stock)
+    public function show($id)
     {
-        //
+        return Stock::find($id);
     }
 
     /**
@@ -67,9 +84,11 @@ class StockController extends Controller
      * @param  \App\Models\Stock  $stock
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Stock $stock)
+    public function update(Request $request, $id)
     {
-        //
+        $stock = Stock::find($id);
+        $stock->update($request->all());
+        return $stock;
     }
 
     /**
@@ -78,8 +97,20 @@ class StockController extends Controller
      * @param  \App\Models\Stock  $stock
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Stock $stock)
+    public function destroy($id)
     {
-        //
+        $stock = Stock::find($id);
+        $stock->delete();
+        return response('stock deleted ', 200);
+    }
+
+    public function searchStock($search_text){
+        $stock = Stock::where('roll_no', $search_text)->get();
+        return $stock;
+    }
+
+    public function getCurrentStock($product_name){
+        
+        
     }
 }

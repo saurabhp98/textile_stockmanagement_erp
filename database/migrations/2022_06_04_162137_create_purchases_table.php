@@ -30,11 +30,11 @@ class CreatePurchasesTable extends Migration
 
             //one to many relation 
             //items table
-            $table->unsignedBigInteger('item_id');
-            $table->foreign('item_id')
-                    ->references('id')
-                    ->on('items')
-                    ->onDelete('cascade');
+            // $table->unsignedBigInteger('item_id');
+            // $table->foreign('item_id')
+            //         ->references('item_id')
+            //         ->on('item_purchase')
+            //         ->onDelete('cascade');
 
             // one to many table 
             // transport table

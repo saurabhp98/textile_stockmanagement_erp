@@ -8,4 +8,36 @@ use Illuminate\Database\Eloquent\Model;
 class Stock extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'roll_no',
+        'grade',
+        'meter',
+        'width',
+        'weight',
+        'purchase_client_id',
+        'purchase_item_id',
+        'purchase_transport_id'
+    ];
+    
+    public function purchase(){
+        return $this->belongsTo(Purchase::class, 'purchases_id');
+    }
+
+
+    public function sale(){
+        return $this->belongsTo(Sale::class);
+    }
+
+    public function purchaseClient(){
+        return $this->belongsTo(Purchase::class, 'purchase_client_id');
+
+    }
+
+    public function purchaseItem(){
+        return $this->belongsTo(Purchase::class, 'purchase_item_id');
+    }
+
+    public function purchaseTransport(){
+        return $this->belongsTo(Purchase::class, 'purchase_transport_id');
+    }
 }
