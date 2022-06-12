@@ -48,9 +48,9 @@ class Purchase extends Model
         return $this->hasOne(Stock::class, 'purchase_client_id');
     }
 
-    public function itemName(){
-        return $this->hasOne(Stock::class, 'purchase_item_id');
-    }
+    // public function itemName(){
+    //     return $this->hasOne(Stock::class, 'purchases_item_id');
+    // }
 
     public function trasnportName(){
         return $this->hasOne(Stock::class, 'purchase_trasnport_id');

@@ -15,4 +15,18 @@ class Client extends Model
         // return $this->belongsToMany(Purchase::class);
         return $this->hasMany(Purchase::class);
     }
+
+    public function sale(){
+        return $this->hasMany(Sale::class, 'client_id');
+    }
+
+    public function purchaseGrClient(){
+        return $this->hasMany(PurchaseGr::class, 'client_id');
+    }
+
+    public function saleGrTransport(){
+        return $this->hasMany(SaleGr::class, 'transport_id');
+    }
+
+    
 }

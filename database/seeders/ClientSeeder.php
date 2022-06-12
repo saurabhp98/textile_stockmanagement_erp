@@ -19,7 +19,7 @@ class ClientSeeder extends Seeder
 
         $faker = Faker::create();
 
-        foreach (range(1, 5) as  $value) {
+        foreach (range(1, 50) as  $value) {
             
             Client::create([
                 'name' => $faker->company(),

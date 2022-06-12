@@ -18,4 +18,12 @@ class Item extends Model
         // return $this->belongsToMany(Purchase::class);
         return $this->belongsToMany(Purchase::class);
     }
+
+    public function sale(){
+        return $this->belongsToMany(Sale::class, 'sale_id');
+    }
+
+    public function stockByItem(){
+        return $this->hasMany(Stock::class);
+    }
 }

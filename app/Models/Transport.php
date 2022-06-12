@@ -21,5 +21,15 @@ class Transport extends Model
         return $this->hasOne(Purchase::class);
     }
 
-    
+    public function sale(){
+        return $this->hasOne(Sale::class, 'transport_id');
+    }
+
+    public function purchaseGrTransport(){
+        return $this->hasOne(PurchaseGr::class, 'transport_id');
+    }
+
+    public function saleGrTransport(){
+        return $this->hasOne(SaleGr::class, 'transport_id');
+    }
 }

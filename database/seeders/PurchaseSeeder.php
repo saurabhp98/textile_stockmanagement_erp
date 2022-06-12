@@ -18,7 +18,7 @@ class PurchaseSeeder extends Seeder
         //
         $faker = Faker::create();
         Purchase::create([
-            'inv_no' => '2021-22/045',
+            'inv_no' => '2021-28/544',
             'inv_date' => $faker->date(),
             'challan_no' => '2021-22/050',
             'challan_date' => $faker->date(),

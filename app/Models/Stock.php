@@ -33,11 +33,26 @@ class Stock extends Model
 
     }
 
-    public function purchaseItem(){
-        return $this->belongsTo(Purchase::class, 'purchase_item_id');
-    }
+    // public function purchaseItem(){
+    //     return $this->belongsTo(Purchase::class, 'purchases_item_id');
+    // }
 
     public function purchaseTransport(){
         return $this->belongsTo(Purchase::class, 'purchase_transport_id');
+    }
+
+    // many to one with item table
+    public function itemStock(){
+        return $this->belongsTo(Item::class, 'item_id');
+    }
+
+    //many to one with purchase gr
+    public function purchaseGr(){
+        return $this->belongsTo(PurchaseGr::class, 'purchasegr_id');
+    }
+
+    // many to one with sale gr
+    public function saleGr(){
+        return $this->belongsTo(SaleGr::class, 'salegr_id');
     }
 }

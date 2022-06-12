@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\TransportController;
 use Illuminate\Http\Request;
@@ -46,4 +47,7 @@ Route::get('/search_purchase', [PurchaseController::class, 'searchPurchase']);
 // Stock model api
 Route::resource('/stock', StockController::class);
 Route::get('/search_stock/{search_text}', [StockController::class, 'searchStock']);
+
+// Sale model api
+Route::resource('/sale', SaleController::class);
 

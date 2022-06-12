@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Purchase;
 use App\Models\Stock;
 use Illuminate\Http\Request;
@@ -38,6 +39,7 @@ class StockController extends Controller
     public function store(Request $request)
     {
         $purchase = Purchase::find($request->id);
+        $item = Item::find($request->item_id);
         $stock = new Stock();
         $stock->roll_no = $request->roll_no;
         $stock->grade = $request->grade;
@@ -48,8 +50,13 @@ class StockController extends Controller
         // $stock->purchase_item_id -> $purchase->item_id;
         // $stock->purchase_transport_id -> $purchase->transport_id;
 
+        
         try {
-            $purchase->stock()->save($stock);
+            $stock->purchaseClient()->associate($purchase->client_id);
+            $stock->purchaseTransport()->associate($purchase->transport_id);
+            $stock->itemStock()->associate($item);
+            $stock->purchase()->associate($purchase);
+            $stock->save();
         } catch (Throw_ $th) {
             throw $th;
         }

@@ -35,6 +35,10 @@ class CreateStocksTable extends Migration
                     ->on('sales')
                     ->onDelete('cascade');
 
+
+                    
+
+
             
             // one to many relation with client_id on purchases
             $table->unsignedBigInteger('purchase_client_id');
@@ -42,34 +46,35 @@ class CreateStocksTable extends Migration
                     ->references('client_id')
                     ->on('purchases')
                     ->onDelete('cascade');
-
-            // // one to many relation with item_id on purchases
-            // $table->unsignedBigInteger('purchase_item_id');
-            //         $table->foreign('purchase_item_id')
-            //                 ->references('item_id')
-            //                 ->on('purchases')
-            //                 ->onDelete('cascade');
-                            
-            // one to many relation with transport_id on purchase
+                    // one to many relation with transport_id on purchase
             $table->unsignedBigInteger('purchase_transport_id');
             $table->foreign('purchase_transport_id')
                     ->references('transport_id')
                     ->on('purchases')
                     ->onDelete('cascade');
 
-            // // one to many relation with purchase_gr on purchase
-            // $table->unsignedBigInteger('purchase_gr_id');
-            // $table->foreign('purchase_gr_id')
-            //         ->references('id')
-            //         ->on('purchase_gr')
-            //         ->onDelete('cascade');
+
+            // one to many relation with item_id on item
+            $table->unsignedBigInteger('item_id');
+                    $table->foreign('item_id')
+                            ->references('id')
+                            ->on('items')
+                            ->onDelete('cascade');
+                            
+                            // one to many relation with sale_gr on purchase
+                            $table->unsignedBigInteger('salegr_id')->nullable();
+                            $table->foreign('salegr_id')
+                                    ->references('id')
+                                    ->on('sale_grs')
+                                    ->onDelete('cascade');
             
-            // // one to many relation with sale_gr on purchase
-            // $table->unsignedBigInteger('sale_gr_id');
-            // $table->foreign('sale_gr_id')
-            //         ->references('id')
-            //         ->on('sale_gr')
-            //         ->onDelete('cascade');
+            // one to many relation with purchase_gr on purchase
+            $table->unsignedBigInteger('purchasegr_id')->nullable();
+            $table->foreign('purchasegr_id')
+                    ->references('id')
+                    ->on('purchase_grs')
+                    ->onDelete('cascade');
+            
 
             $table->timestamps();
         });
