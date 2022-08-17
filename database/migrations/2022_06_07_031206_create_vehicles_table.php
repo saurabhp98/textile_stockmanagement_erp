@@ -19,6 +19,7 @@ class CreateVehiclesTable extends Migration
             $table->string('wheel');
             $table->string('company');
             
+            
         });
     }
 

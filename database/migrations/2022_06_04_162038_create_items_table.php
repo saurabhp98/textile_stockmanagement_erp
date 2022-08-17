@@ -18,9 +18,9 @@ class CreateItemsTable extends Migration
             $table->string('item_name');
             $table->double('width');
             $table->string('shade');
-            
-
             $table->timestamps();
+
+            
         });
     }
 

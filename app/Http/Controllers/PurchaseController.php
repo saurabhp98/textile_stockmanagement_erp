@@ -56,6 +56,7 @@ class PurchaseController extends Controller
         
         try {
             // $item->purchase()->save($purchase);
+            
             $purchase->save();
         $purchase->item()->attach($item);//attach item to purchase many to many relation
 
