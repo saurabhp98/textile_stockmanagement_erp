@@ -34,7 +34,7 @@ class CreateSaleGrsTable extends Migration
                     ->on('sales')
                     ->onDelete('cascade');
 
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 
