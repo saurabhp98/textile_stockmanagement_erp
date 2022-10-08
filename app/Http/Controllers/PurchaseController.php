@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Item;
 use App\Models\Purchase;
+use App\Models\Stock;
 use App\Models\Transport;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Throw_;
@@ -126,5 +127,69 @@ class PurchaseController extends Controller
                             ->orWhere('challan_no', $request->search_text)
                             ->orWhere('lr_no', $request->search_text)->get();
         return $purchase;
+    }
+
+    public function getSortWiseDetails(){
+       
+     
+//         $items = Item::all();
+//         $gradeList = [];
+
+//         foreach ($items as $item  ) {
+//             # code...
+//             $stockByitemdet = $item->stockByItem;
+//             foreach ($stockByitemdet as $stockItem) {
+//                 # code...
+// $stocckgrade = $stockItem->grade;
+// array_push($gradeList, $stocckgrade);
+
+//             }
+//         }
+
+//         return $gradeList;
+
+        // return Item::find(1)->stockByItem->find(1)->grade;
+        // return Item::find(1)->stockByItem;
+
+        
+        // $itemarray = [];
+        // // $itemarrayCollection = collect($itemarray);
+        // foreach ($items as $item ) {
+        //     # code...
+        //     array_push($itemarray, $item->item_name );
+            
+            
+        // }
+        // return ;
+
+        // $unique = $itemarrayCollection->unique();
+        // return $itemarrayCollection->unique()->values()->all();
+        // return collect($itemarray)->unique()->values()->all();
+        
+        
+
+    // // $item_grade = array();
+    // // for ($i=0; $i < count($item); $i++) { 
+    //     $item_stock = Stock::with('itemStock', 'purchase')
+    //                         ->where('grade', 'A')->get();
+                        
+    //     return $item_stock;
+        
+    // }
+    }
+
+    public function getSortWiseDetailSingle(Request $request){
+    //    $item =  Item::with('stockByItem')->where('item_name', $request->sort)
+    //    ->whereHas('stock_by_item', function ($query ){
+    //     $query->where('grade', 'a');
+    //    })
+    //    ->get();
+      
+    //    return $item;
+
+    return Item::with(['stockByItem' => function($stockByItem){
+
+        $stockByItem->where('item_name', '2101');
+    }])->get();
     }
 }

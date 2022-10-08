@@ -16,7 +16,9 @@ class Stock extends Model
         'weight',
         'purchase_client_id',
         'purchase_item_id',
-        'purchase_transport_id'
+        'purchase_transport_id',
+        'sale_id',
+        
     ];
     
     public function purchase(){
