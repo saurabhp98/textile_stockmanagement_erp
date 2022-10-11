@@ -40,7 +40,7 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {   
-        $item = Item::findOrFail($request->item_id); //get item
+        // $item = Item::findOrFail($request->item_id); //get item
         $client = Client::findOrFail($request->client_id);//get client
         $transport = Transport::findOrFail($request->transport_id); //get transport
         $purchase = new Purchase(); //created new purchase instance
@@ -59,7 +59,7 @@ class PurchaseController extends Controller
             // $item->purchase()->save($purchase);
             
             $purchase->save();
-        $purchase->item()->attach($item);//attach item to purchase many to many relation
+        // $purchase->item()->attach($item);//attach item to purchase many to many relation
 
         } catch (Throw_ $th) {
             throw $th;
