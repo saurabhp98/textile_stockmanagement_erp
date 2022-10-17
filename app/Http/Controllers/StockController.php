@@ -201,7 +201,7 @@ class StockController extends Controller
     // bulk add stock
     public function addBulkStock(Request $request)
     {
-        $purchase = Purchase::find($request->purchase_id);
+        $purchase = Purchase::where('inv_no' , $request->inv_no)->first();
         $stockList =  $request->stock;
         $data = array();
         foreach ($stockList as $singleStock) {
